@@ -42,6 +42,7 @@ const typeDefs = gql`
     removeBusiness(businessId: ID!): Business
     addComment(businessId: ID!, commentText: String!): Business
     removeComment(businessId: ID!, commentId: ID!): Business
+  }
 `;
 
 module.exports = typeDefs;
