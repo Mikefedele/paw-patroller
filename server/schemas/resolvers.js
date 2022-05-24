@@ -7,12 +7,21 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('thoughts');
     },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('thoughts');
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, args) => {
+      console.log(args.username, args.email, args.password);
+      const user = await User.create({ username: args.username, email: args.email, password: args.password });
       const token = signToken(user);
-      return { token, user };
+
+      console.log(user);
+      return {token, user };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -33,13 +42,17 @@ const resolvers = {
     },
     addBusiness: async (parent, { name, yelpId, url, location }, context) => {
       if (context.user) {
-        const business = await Business.create({
-          name, yelpId, url, location
-        });
+        let business = await Business.findOne({yelpId})
+        if(!business) {
+          business = await Business.create({
+            name, yelpId, url, location
+          });
+        } 
 
         await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { businesses: business._id } }
+          { _id: context.user._id},
+          { $addToSet: { businesses: business._id } },
+          {new: true},
         );
 
         return business;
@@ -55,7 +68,8 @@ const resolvers = {
           { _id: context.user._id },
           { $pull: { businesses: business._id } }
         );
-        return thought;
+
+        return business;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -95,3 +109,5 @@ const resolvers = {
     },
   }
 }
+
+module.exports = resolvers;
