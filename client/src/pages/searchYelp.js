@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 import { SearchYelp } from "../utils/api";
+import { mainSearch } from "../utils/api";
 import Auth from '../utils/auth';
 import { useMutation } from "@apollo/client";
 
@@ -25,7 +26,7 @@ const SearchBusinesses = () => {
       return false;
     }
     try {
-      const response = await SearchYelp(searchInput);
+      const response = await mainSearch(searchInput);
       console.log(response);
       if (!response.ok) {
         throw new Error("Could not complete search request");

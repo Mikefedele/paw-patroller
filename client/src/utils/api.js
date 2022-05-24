@@ -2,10 +2,15 @@ const yelp = require('yelp-fusion');
 
 const apiKey = 'sFDrQ2pCQos8PDSDDwhIcVDKCUPVRHBWQf8OUcjX3PKW-d6e0S_uxIlVXXbHGFf96nF8w-VqDPw_2ZzSU-5-ievJLv_YlGpOQkamfNYe3l5k3b0BnlP2gTXQ5ZyLYnYx';
 
+export const mainSearch = (locationInput)=>{
+  const apiKey = 'sFDrQ2pCQos8PDSDDwhIcVDKCUPVRHBWQf8OUcjX3PKW-d6e0S_uxIlVXXbHGFf96nF8w-VqDPw_2ZzSU-5-ievJLv_YlGpOQkamfNYe3l5k3b0BnlP2gTXQ5ZyLYnYx';
+
 const searchYelp = {
   term:'dogs_allowed',
-  location: '19440'
+  location: locationInput
 };
+// const { term, location } = search
+
 
 const client = yelp.client(apiKey);
 
@@ -17,6 +22,7 @@ client.search(searchYelp).then(response => {
   console.log(e);
 });
 
+}
 
 
 
