@@ -9,6 +9,12 @@ const searchYelp = {
 
 const client = yelp.client(apiKey);
 
+const searchLocation = (query) => {
+  return client.search({
+    term: 'dogs_allowed',
+    location: query})
+}
+
 client.search(searchYelp).then(response => {
   const firstResult = response.jsonBody.businesses;
   const prettyJson = JSON.stringify(firstResult, null, 4);
