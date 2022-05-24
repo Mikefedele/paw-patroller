@@ -9,10 +9,10 @@ const SearchBusinesses = () => {
   const [searchInput, setSearchInput] = useState("");
 
   //state to hold businessId values
-  const [savedBizIds, setSavedBizIds] = useState(getSavedBizIds());
-  useEffect(() => {
-    return () => saveBizIds(savedBizIds);
-  });
+  // const [savedBizIds, setSavedBizIds] = useState(getSavedBizIds());
+  // useEffect(() => {
+  //   return () => saveBizIds(savedBizIds);
+  // });
 
   //function to handle the client's business search input
   const handleFormSubmit = async (event) => {

@@ -7,6 +7,12 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('thoughts');
     },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('thoughts');
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
@@ -33,9 +39,12 @@ const resolvers = {
     },
     addBusiness: async (parent, { name, yelpId, url, location }, context) => {
       if (context.user) {
-        const business = await Business.create({
-          name, yelpId, url, location
-        });
+        let business = await Business.findOne(yelpId)
+        if(!business) {
+          business = await Business.create({
+            name, yelpId, url, location
+          });
+        } 
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
