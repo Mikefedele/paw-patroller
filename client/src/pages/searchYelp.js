@@ -34,6 +34,13 @@ const SearchBusinesses = () => {
       const { data } = await response.json();
       const bizArray = data.map((biz) => ({
         //todo what data do we want back
+        name: biz.name,
+        id: biz.id,
+        image: biz.image_url,
+        rating: biz.rating,
+        street: biz.location.address1,
+        city: biz.city,
+        zip: biz.zip_code
       }));
 
       setSearchedBiz(bizArray);
