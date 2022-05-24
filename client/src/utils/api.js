@@ -2,7 +2,7 @@ const yelp = require('yelp-fusion');
 
 const apiKey = 'sFDrQ2pCQos8PDSDDwhIcVDKCUPVRHBWQf8OUcjX3PKW-d6e0S_uxIlVXXbHGFf96nF8w-VqDPw_2ZzSU-5-ievJLv_YlGpOQkamfNYe3l5k3b0BnlP2gTXQ5ZyLYnYx';
 
-export const searchYelp = {
+const searchYelp = {
   term:'dogs_allowed',
   location: '19440'
 };
@@ -21,11 +21,11 @@ client.search(searchYelp).then(response => {
 
 
 // GET https://api.yelp.com/v3/businesses/search?term=dogs_allowed&location=${query}
-export const searchYelpApi = (query) => {
-  return fetch(`https://api.yelp.com/v3/businesses/search?term=dogs_allowed&location=${query}`, {
-    method: 'GET',
-    headers: {
-      authorization: `Bearer ${token}`,
-    }
-  });
-};
+// export const searchYelpApi = (query) => {
+//   return fetch(`https://api.yelp.com/v3/businesses/search?term=dogs_allowed&location=${query}`, {
+//     method: 'GET',
+//     headers: {
+//       authorization: `Bearer ${token}`,
+//     }
+//   });
+// };
