@@ -9,7 +9,6 @@ const typeDefs = gql`
     businesses: [Business]!
     comments: [Comment]!
   }
-
   type Business {
     _id: ID
     name: String
@@ -18,14 +17,12 @@ const typeDefs = gql`
     location: String
     comments: [Comment]!
   }
-
   type Comment {
     _id: ID
     commentText: String
     commentAuthor: String
     createdAt: String
   }
-
   type Auth {
     token: ID!
     user: User
@@ -46,3 +43,4 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
+
