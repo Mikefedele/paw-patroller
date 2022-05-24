@@ -6,10 +6,6 @@ const businessSchema = new Schema({
     type: String,
     required: true,
   },
-  id: {
-    type: String,
-    required: true,
-  },
   yelpId: {
     type: String,
   },
