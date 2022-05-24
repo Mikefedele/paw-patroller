@@ -15,10 +15,13 @@ const resolvers = {
     },
   },
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
-      return { token, user };
+    addUser: async (parent, args) => {
+      console.log(args.username, args.email, args.password);
+      const user = await User.create({ username: args.username, email: args.email, password: args.password });
+      // const token = signToken(user);
+
+      console.log(user);
+      return user ;
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -38,22 +41,27 @@ const resolvers = {
       return { token, user };
     },
     addBusiness: async (parent, { name, yelpId, url, location }, context) => {
-      if (context.user) {
-        let business = await Business.findOne(yelpId)
+      // if (context.user) {
+        let business = await Business.findOne({yelpId})
+        console.log(business);
         if(!business) {
+          console.log('you got here')
+          console.log(name)
           business = await Business.create({
             name, yelpId, url, location
           });
+          console.log('inside if block', business);
         } 
 
         await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { businesses: business._id } }
+          { _id: '628cfbfc4f68a6d729501c8c'},
+          { $addToSet: { businesses: business._id } },
+          {new: true},
         );
 
         return business;
-      }
-      throw new AuthenticationError('You need to be logged in!');
+      // }
+      // throw new AuthenticationError('You need to be logged in!');
     },
     removeBusiness: async (parent, { businessId }, context) => {
       if (context.user) {
@@ -104,3 +112,5 @@ const resolvers = {
     },
   }
 }
+
+module.exports = resolvers;
