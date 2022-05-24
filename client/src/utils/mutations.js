@@ -40,3 +40,49 @@ export const ADD_BUSINESS = gql`
   }
 `;
 
+export const ADD_COMMENT = gql`
+mutation addComment($businessId: ID!, $commentText: String!) {
+  addComment(businessId: $businessId, commentText: $commentText) {
+    _id
+    name
+    yelpId
+    url
+    location
+    comments {
+      _id
+      commentText
+    }
+  }
+}`;
+
+export const REMOVE_BUSINESS = gql`
+mutation removeBusiness($businessId: ID!) {
+  removeBusiness(businessId: $businessId) {
+    _id
+    name
+    yelpId
+    url
+    location
+    comments {
+      _id
+      commentText
+    }
+  }
+}
+`;
+
+export const REMOVE_COMMENT = gql`
+mutation removeComment($businessId: ID!, $commentId: ID!) {
+  removeComment(businessId: $businessId, commentId: $commentId) {
+    _id
+    name
+    yelpId
+    url
+    location
+    comments {
+      _id
+      commentAuthor
+    }
+  }
+}`;
+
