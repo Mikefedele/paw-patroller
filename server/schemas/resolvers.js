@@ -64,17 +64,18 @@ const resolvers = {
       // throw new AuthenticationError('You need to be logged in!');
     },
     removeBusiness: async (parent, { businessId }, context) => {
-      if (context.user) {
+      // if (context.user) {
         const business = await Business.findOne({
           _id: businessId
         })
         await User.findOneAndUpdate(
-          { _id: context.user._id },
+          { _id: '628cfbfc4f68a6d729501c8c' },
           { $pull: { businesses: business._id } }
         );
-        return thought;
-      }
-      throw new AuthenticationError('You need to be logged in!');
+        
+        return business;
+      // }
+      // throw new AuthenticationError('You need to be logged in!');
     },
     addComment: async (parent, { businessId, commentText }, context) => {
       if (context.user) {
