@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import { searchYelp } from "../utils/api";
+import { SearchYelp } from "../utils/api";
 import Auth from '../utils/auth';
 import { useMutation } from "@apollo/client";
 
@@ -25,7 +25,7 @@ const SearchBusinesses = () => {
       return false;
     }
     try {
-      const response = await searchYelp(searchInput);
+      const response = await SearchYelp(searchInput);
       console.log(response);
       if (!response.ok) {
         throw new Error("Could not complete search request");
@@ -89,7 +89,7 @@ const SearchBusinesses = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for Dog Friendly Businesses'
+                  placeholder='Search'
                 />
               </Col>
               <Col xs={12} md={4}>
