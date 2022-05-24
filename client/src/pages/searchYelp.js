@@ -10,6 +10,8 @@ const SearchBusinesses = () => {
 
   //state to hold businessId values
   const [savedBizIds, setSavedBizIds] = useState(getSavedBizIds());
+
+  //todo add useMutation to save businesses
   useEffect(() => {
     return () => saveBizIds(savedBizIds);
   });
@@ -31,6 +33,13 @@ const SearchBusinesses = () => {
       const { data } = await response.json();
       const bizArray = data.map((biz) => ({
         //todo what data do we want back
+        name: biz.name,
+        id: biz.id,
+        image: biz.image_url,
+        rating: biz.rating,
+        street: biz.location.address1,
+        city: biz.city,
+        zip: biz.zip_code
       }));
 
       setSearchedBiz(bizArray);
@@ -39,6 +48,8 @@ const SearchBusinesses = () => {
       console.error(err);
     }
   };
+
+  return 
 
 
 
