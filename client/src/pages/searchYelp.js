@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import { SearchYelp } from "../utils/api";
+import { searchYelpApi } from "../utils/api";
 import { mainSearch } from "../utils/api";
 import Auth from '../utils/auth';
 import { useMutation } from "@apollo/client";
+const CORS = "https://cors-anywhere.herokuapp.com/"
 
 
 const SearchBusinesses = () => {
@@ -25,26 +26,40 @@ const SearchBusinesses = () => {
     if (!searchInput) {
       return false;
     }
-    try {
-      const response = await mainSearch(searchInput);
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("Could not complete search request");
-      }
-      //map over the yelp results and get endpoints we want
-      const { data } = await response.json();
-      const bizArray = data.map((biz) => ({
-        //todo what data do we want back
+try{
+    const response = await searchYelpApi(searchInput)
+
+
+    // const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dogs_allowed&location=${searchInput}`, {
+    //       method: 'GET',
+    //       headers: {
+    //         authorization: `Bearer sFDrQ2pCQos8PDSDDwhIcVDKCUPVRHBWQf8OUcjX3PKW-d6e0S_uxIlVXXbHGFf96nF8w-VqDPw_2ZzSU-5-ievJLv_YlGpOQkamfNYe3l5k3b0BnlP2gTXQ5ZyLYnYx`,
+    //       }
+    //     }) 
+        console.log(response)
+        const data = await response.json();
+            console.log(data)
+
+      // searchYelpApi(searchInput);
+      // console.log(response);
+      // if (!response) {
+      //   throw new Error("Could not complete search request");
+      // }
+      // // //map over the yelp results and get endpoints we want
+
+      const bizArray = data.businesses.map((biz) => ({
         name: biz.name,
         id: biz.id,
         image: biz.image_url,
         rating: biz.rating,
-        street: biz.location.address1,
+        street: biz.location.display_address,
         city: biz.city,
         zip: biz.zip_code
       }));
-
+      console.log(bizArray);
       setSearchedBiz(bizArray);
+      
+
       setSearchInput("");
     } catch (err) {
       console.error(err);
@@ -112,14 +127,14 @@ const SearchBusinesses = () => {
         <CardColumns>
           {searchedBiz.map((biz) => {
             return (
-              <Card key={biz.bizId} border='dark'>
+              <Card key={biz.id} border='dark'>
                 {biz.image ? (
                   <Card.Img src={biz.image} alt={`The cover for ${biz.name}`} variant='top' />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{biz.name}</Card.Title>
                   <p className='small'>Location: {}</p>
-                  <Card.Text>{biz.location.address1}</Card.Text>
+                  <Card.Text>{biz.street}</Card.Text>
                  
                 </Card.Body>
               </Card>
