@@ -8,7 +8,7 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import NavBar from './components/Navbar';
 import { setContext } from '@apollo/client/link/context';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({

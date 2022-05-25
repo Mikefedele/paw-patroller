@@ -8,6 +8,7 @@ import {
   CardColumns,
   Card,
   Button,
+  Container
 } from 'react-bootstrap';
 
 const Profile = () => {
@@ -50,7 +51,7 @@ const Profile = () => {
 
   return (
     <div>
-      <div>
+      <Container>
         <h2>
           Viewing {user.username}'s profile.
         </h2>
@@ -59,8 +60,8 @@ const Profile = () => {
           <h3>Favorite Businesses</h3>
           <CardColumns>
             {user.businesses.map((business) => (
-              <Card key={business._id} style={{ width: '18rem' }} >
-                <Card.Title><h4>{business.name}</h4></Card.Title>
+              <Card key={business._id} style={{ width: '20rem' }} >
+                <Card.Title>{business.name}</Card.Title>
                 <Card.Text>{business.url}</Card.Text>
                 <Button variant="primary" onClick={() => handleDeleteBusiness(business._id)}>
                   Remove from favorites
@@ -72,7 +73,7 @@ const Profile = () => {
           
 
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

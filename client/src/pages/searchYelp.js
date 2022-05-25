@@ -9,8 +9,8 @@ import {
   CardColumns,
 } from "react-bootstrap";
 import { searchYelpApi } from "../utils/api";
-import Auth from "../utils/auth";
-import { useMutation } from "@apollo/client";
+// import Auth from "../utils/auth";
+// import { useMutation } from "@apollo/client";
 
 
 const SearchBusinesses = () => {
