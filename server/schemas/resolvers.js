@@ -46,6 +46,7 @@ const resolvers = {
       return { token, user };
     },
     addBusiness: async (parent, { name, yelpId, url, location }, context) => {
+      console.log('got to addBusiness mutation')
       if (context.user) {
         let business = await Business.findOne({yelpId})
         if(!business) {
@@ -53,6 +54,7 @@ const resolvers = {
             name, yelpId, url, location
           });
         } 
+        console.log(business);
 
         await User.findOneAndUpdate(
           { _id: context.user._id},
