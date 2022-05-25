@@ -41,7 +41,7 @@ const SearchBusinesses = () => {
       }
       const data = await response.json();
       console.log(data);      
-      //data is object need to map over data.businesses
+
       const bizArray = data.businesses.map((biz) => ({
         name: biz.name,
         id: biz.id,
