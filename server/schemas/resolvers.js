@@ -10,7 +10,6 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        console.log('got to me query');
         return User.findOne({ _id: context.user._id }).populate('businesses');
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -47,6 +46,7 @@ const resolvers = {
       return { token, user };
     },
     addBusiness: async (parent, { name, yelpId, url, location }, context) => {
+      console.log('got to addBusiness mutation')
       if (context.user) {
         let business = await Business.findOne({yelpId})
         if(!business) {
@@ -54,6 +54,7 @@ const resolvers = {
             name, yelpId, url, location
           });
         } 
+        console.log(business);
 
         await User.findOneAndUpdate(
           { _id: context.user._id},

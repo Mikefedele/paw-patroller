@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Jumbotron,
-  Container,
-  Col,
-  Form,
-  Button,
-  Card,
-  CardColumns,
-} from "react-bootstrap";
-import { searchYelpApi } from "../utils/api";
+import { Container, Col, Form, Button, Card, CardColumns, Jumbotron } from "react-bootstrap";
+import { searchMain, searchYelpApi } from "../utils/api";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
-
+import { ADD_BUSINESS } from "../utils/mutations";
+import { getSavedBizIds, saveBizIds } from "../utils/loacalStorage";
 
 
 const SearchBusinesses = () => {
@@ -21,40 +14,43 @@ const SearchBusinesses = () => {
   const [searchInput, setSearchInput] = useState("");
 
   //  state to hold businessId values
-  //    const [savedBizIds, setSavedBizIds] = useState(getSavedBizIds());
-  //    useEffect(() => {
-  //     return () => saveBizIds(savedBizIds);
-  //  });
+
+  const [savedBizIds, setSavedBizIds] = useState(getSavedBizIds());
+  const [addBusiness, { error }] = useMutation(ADD_BUSINESS);
+
+  useEffect(() => {
+    return () => saveBizIds(savedBizIds);
+  });
 
   //function to handle the client's business search input
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    console.log("here");
     if (!searchInput) {
       return false;
     }
     try {
       const response = await searchYelpApi(searchInput);
-
       console.log(response);
-      if (!response) {
+      if (!response.ok) {
         throw new Error("Could not complete search request");
       }
+      //map over the yelp results and get endpoints we want
       const data = await response.json();
-      console.log(data);      
-
-      const bizArray = data.businesses.map((biz) => ({
+      console.log(data);
+      const bizArray = data?.businesses.map((biz) => ({
+        //todo what data do we want back
         name: biz.name,
         id: biz.id,
         image: biz.image_url,
         rating: biz.rating,
-        street: biz.location.display_address,
+        street: biz.location.address1,
         city: biz.city,
         zip: biz.zip_code,
+        url: biz.url,
       }));
-      console.log(bizArray);
-      setSearchedBiz(bizArray);
 
+      setSearchedBiz(bizArray);
       setSearchInput("");
     } catch (err) {
       console.error(err);
@@ -62,28 +58,34 @@ const SearchBusinesses = () => {
   };
 
   // create function to handle saving a book to our database
-  // const handleSaveBiz = async (bizId) => {
-  // find the book in `searchedBooks` state by the matching id
-  // const bizToSave = savedBizIds.find((biz) => biz.bizId === bizId);
+  const handleSaveBiz = async (bizId) => {
+    // find the book in `searchedBooks` state by the matching id
+    const bizToSave = searchedBiz.find((biz) => biz.id === bizId);
+    console.log(bizToSave);
 
-  // get token
-  // const token = Auth.loggedIn() ? Auth.getToken() : null;
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  // if (!token) {
-  //   return false;
-  // }
+    if (!token) {
+      return false;
+    }
 
-  // try {
-  //   const { data } = await saveBiz({
-  //    variables: {bizData: {...bizToSave}}
-  //   })
-
-  // if book successfully saves to user's account, save book id to state
-  //     setSavedBizIds([...savedBizIds, bizToSave.bizId]);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+    try {
+      await addBusiness({
+        variables: {
+          name: bizToSave.name,
+          yelpId: bizToSave.id,
+          url: bizToSave.url,
+          location: bizToSave.street,
+        },
+      });
+      // console.log(data);
+      // if biz successfully saves to user's account, save biz id to state
+      setSavedBizIds([...savedBizIds, bizToSave.bizId]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -134,6 +136,21 @@ const SearchBusinesses = () => {
                   <Card.Title>{biz.name}</Card.Title>
                   <p className="small">Location: {}</p>
                   <Card.Text>{biz.street}</Card.Text>
+                  {Auth.loggedIn() && (
+                    <Button
+                      disabled={savedBizIds?.some(
+                        (savedBizId) => savedBizId === biz.id
+                      )}
+                      className="btn-block btn-info"
+                      onClick={() => handleSaveBiz(biz.id)}
+                    >
+                      {savedBizIds?.some(
+                        (savedBizId) => savedBizId === biz.id
+                      )
+                        ? "This business has already been saved!"
+                        : "Save this Business!"}
+                    </Button>
+                  )}
                 </Card.Body>
               </Card>
             );
@@ -152,7 +169,9 @@ export default SearchBusinesses;
 //     className='btn-block btn-info'
 //     onClick={() => handleSaveBiz(biz.bizId)}>
 //     {savedBizIds?.some((savedBizId) => savedBizId === biz.bizId)
-//       ? 'This business has already been saved!'
+
 //       : 'Save this Business!'}
 //   </Button>
 // )}
+
+//
