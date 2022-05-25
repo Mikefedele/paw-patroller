@@ -6,6 +6,7 @@ import SearchYelp from './pages/SearchYelp';
 import Login from './pages/Login'; 
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
+import NavBar from './components/Navbar'
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -16,6 +17,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
+        <NavBar/>
         <div className="flex-column justify-center align-center min-100-vh bg-primary">
           <Routes>
             <Route 
@@ -29,6 +31,14 @@ function App() {
             <Route
               path="/signup"
               element={<Signup />}
+            />
+            <Route
+              path="/me"
+              element={<Profile />}
+            />
+            <Route
+              path="/profiles/:username"
+              element={<Profile />}
             />
           </Routes>
         </div>

@@ -37,3 +37,14 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const QUERY_BUSINESSES = gql`
+  query Businesses {
+    businesses {
+      _id
+      name
+      location
+      url
+    }
+  }
+`;
