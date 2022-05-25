@@ -15,6 +15,10 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    businesses: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Business.find(params);
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
