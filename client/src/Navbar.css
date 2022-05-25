@@ -1,0 +1,19 @@
+.navbar {
+  background-color: rgba(9, 149, 149, 0.615);
+  height: 125px;
+  text-align: center;
+  font-size: 50px;
+  
+}
+
+.navbar a {
+  font-size: 1.1rem;
+  margin: 7px;
+  line-height: 0;
+}
+
+h7 {
+font-size: 14px;
+}
+
+

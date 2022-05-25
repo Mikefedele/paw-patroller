@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Col, Form, Button, Card } from "react-bootstrap";
+import { Container, Col, Form, Button, Card, CardColumns, Jumbotron } from "react-bootstrap";
 import { searchMain, searchYelpApi } from "../utils/api";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_BUSINESS } from "../utils/mutations";
 import { getSavedBizIds, saveBizIds } from "../utils/loacalStorage";
+
 
 const SearchBusinesses = () => {
   // create state for holding returned yelp api data
@@ -88,9 +89,9 @@ const SearchBusinesses = () => {
 
   return (
     <>
-      <div fluid="true" className="text-light bg-dark">
+      <Jumbotron fluid className="text-light bg-danger">
         <Container>
-          <h1>Search For Dog Friendly Businesses</h1>
+          <h1>Search For Dog Friendly Businesses Nearby</h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
@@ -100,7 +101,7 @@ const SearchBusinesses = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type="text"
                   size="lg"
-                  placeholder="Search for Dog Friendly Businesses"
+                  placeholder="Search by City, State or Zip"
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -111,7 +112,7 @@ const SearchBusinesses = () => {
             </Form.Row>
           </Form>
         </Container>
-      </div>
+      </Jumbotron>
 
       <Container>
         <h2>
@@ -119,7 +120,8 @@ const SearchBusinesses = () => {
             ? `Viewing ${searchedBiz.length} results:`
             : "Search to begin"}
         </h2>
-        <Col>
+        
+        <CardColumns>
           {searchedBiz.map((biz) => {
             return (
               <Card key={biz.id} border="dark">
@@ -153,7 +155,7 @@ const SearchBusinesses = () => {
               </Card>
             );
           })}
-        </Col>
+        </CardColumns>
       </Container>
     </>
   );
