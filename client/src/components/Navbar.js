@@ -1,22 +1,29 @@
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-
 import Auth from '../utils/auth';
+import '../Navbar.css';
+import logo from '../paw2.png';
 
 const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+      <Navbar bg='white' variant='light' expand='lg'>
         <Container fluid>
           <Navbar.Brand as={Link} to='/'>
-            Find Dog Friendly Businesses
+          <img
+          src={logo}
+          width="50"
+          height="50"
+        />
+        <h3>PAW PATROLLER</h3>
+        <h7>Dog Friendly Business Search</h7>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
               <Nav.Link as={Link} to='/'>
-                Search Businesses
+                Search
               </Nav.Link>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (

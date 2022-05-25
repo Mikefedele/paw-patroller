@@ -13,6 +13,7 @@ import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 
 
+
 const SearchBusinesses = () => {
   // create state for holding returned yelp api data
   const [searchedBiz, setSearchedBiz] = useState([]);
@@ -86,9 +87,9 @@ const SearchBusinesses = () => {
 
   return (
     <>
-      <Jumbotron fluid className="text-light bg-dark">
+      <Jumbotron fluid className="text-light bg-danger">
         <Container>
-          <h1>Search For Dog Friendly Businesses</h1>
+          <h1>Search For Dog Friendly Businesses Nearby</h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
@@ -98,7 +99,7 @@ const SearchBusinesses = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type="text"
                   size="lg"
-                  placeholder="Search"
+                  placeholder="Search by City, State or Zip"
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -117,6 +118,7 @@ const SearchBusinesses = () => {
             ? `Viewing ${searchedBiz.length} results:`
             : "Search to begin"}
         </h2>
+        
         <CardColumns>
           {searchedBiz.map((biz) => {
             return (
