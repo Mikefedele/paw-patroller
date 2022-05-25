@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import { SearchYelp } from "../utils/api";
-import Auth from '../utils/auth';
+import {
+  Jumbotron,
+  Container,
+  Col,
+  Form,
+  Button,
+  Card,
+  CardColumns,
+} from "react-bootstrap";
+import { searchYelpApi } from "../utils/api";
+import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 
 
@@ -12,10 +20,10 @@ const SearchBusinesses = () => {
   const [searchInput, setSearchInput] = useState("");
 
   //  state to hold businessId values
-//    const [savedBizIds, setSavedBizIds] = useState(getSavedBizIds());
-//    useEffect(() => {
-//     return () => saveBizIds(savedBizIds);
-//  });
+  //    const [savedBizIds, setSavedBizIds] = useState(getSavedBizIds());
+  //    useEffect(() => {
+  //     return () => saveBizIds(savedBizIds);
+  //  });
 
   //function to handle the client's business search input
   const handleFormSubmit = async (event) => {
@@ -25,25 +33,27 @@ const SearchBusinesses = () => {
       return false;
     }
     try {
-      const response = await SearchYelp(searchInput);
+      const response = await searchYelpApi(searchInput);
+
       console.log(response);
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Could not complete search request");
       }
-      //map over the yelp results and get endpoints we want
-      const { data } = await response.json();
-      const bizArray = data.map((biz) => ({
-        //todo what data do we want back
+      const data = await response.json();
+      console.log(data);      
+
+      const bizArray = data.businesses.map((biz) => ({
         name: biz.name,
         id: biz.id,
         image: biz.image_url,
         rating: biz.rating,
-        street: biz.location.address1,
+        street: biz.location.display_address,
         city: biz.city,
-        zip: biz.zip_code
+        zip: biz.zip_code,
       }));
-
+      console.log(bizArray);
       setSearchedBiz(bizArray);
+
       setSearchInput("");
     } catch (err) {
       console.error(err);
@@ -52,48 +62,47 @@ const SearchBusinesses = () => {
 
   // create function to handle saving a book to our database
   // const handleSaveBiz = async (bizId) => {
-    // find the book in `searchedBooks` state by the matching id
-    // const bizToSave = savedBizIds.find((biz) => biz.bizId === bizId);
+  // find the book in `searchedBooks` state by the matching id
+  // const bizToSave = savedBizIds.find((biz) => biz.bizId === bizId);
 
-    // get token
-    // const token = Auth.loggedIn() ? Auth.getToken() : null;
+  // get token
+  // const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    // if (!token) {
-    //   return false;
-    // }
+  // if (!token) {
+  //   return false;
+  // }
 
-    // try {
-    //   const { data } = await saveBiz({ 
-    //    variables: {bizData: {...bizToSave}}
-    //   })
+  // try {
+  //   const { data } = await saveBiz({
+  //    variables: {bizData: {...bizToSave}}
+  //   })
 
-      // if book successfully saves to user's account, save book id to state
+  // if book successfully saves to user's account, save book id to state
   //     setSavedBizIds([...savedBizIds, bizToSave.bizId]);
   //   } catch (err) {
   //     console.error(err);
   //   }
   // };
 
-
   return (
     <>
-      <Jumbotron fluid className='text-light bg-dark'>
+      <Jumbotron fluid className="text-light bg-dark">
         <Container>
           <h1>Search For Dog Friendly Businesses</h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
                 <Form.Control
-                  name='searchInput'
+                  name="searchInput"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Search'
+                  type="text"
+                  size="lg"
+                  placeholder="Search"
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
+                <Button type="submit" variant="success" size="lg">
                   Submit Search
                 </Button>
               </Col>
@@ -106,20 +115,23 @@ const SearchBusinesses = () => {
         <h2>
           {searchedBiz.length
             ? `Viewing ${searchedBiz.length} results:`
-            : 'Search to begin'}
+            : "Search to begin"}
         </h2>
         <CardColumns>
           {searchedBiz.map((biz) => {
             return (
-              <Card key={biz.bizId} border='dark'>
+              <Card key={biz.id} border="dark">
                 {biz.image ? (
-                  <Card.Img src={biz.image} alt={`The cover for ${biz.name}`} variant='top' />
+                  <Card.Img
+                    src={biz.image}
+                    alt={`The cover for ${biz.name}`}
+                    variant="top"
+                  />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{biz.name}</Card.Title>
-                  <p className='small'>Location: {}</p>
-                  <Card.Text>{biz.location.address1}</Card.Text>
-                 
+                  <p className="small">Location: {}</p>
+                  <Card.Text>{biz.street}</Card.Text>
                 </Card.Body>
               </Card>
             );
@@ -142,6 +154,3 @@ export default SearchBusinesses;
 //       : 'Save this Business!'}
 //   </Button>
 // )}
-
-
-
