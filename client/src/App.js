@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import NavBar from './components/Navbar';
 import { setContext } from '@apollo/client/link/context';
 
+
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -39,7 +40,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <NavBar/>
-        <div className="flex-column justify-center align-center min-100-vh bg-primary">
+        <div className="flex-column justify-center align-center min-100-vh">
           <Routes>
             <Route 
               path="/" 

@@ -1,15 +1,22 @@
 import React from 'react';
 // import { Navigate, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
-// import Auth from '../utils/auth';
+import { REMOVE_BUSINESS } from '../utils/mutations'
+import Auth from '../utils/auth';
+import {
+  CardColumns,
+  Card,
+  Button,
+  Container
+} from 'react-bootstrap';
 
 const Profile = () => {
 
   const { loading, data } = useQuery(QUERY_ME);
+  const [removeBusiness, { error }] = useMutation(REMOVE_BUSINESS);
 
   const user = data?.me || {};
-  console.log(user);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -24,18 +31,49 @@ const Profile = () => {
     );
   }
 
+  const handleDeleteBusiness = async (businessId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      await removeBusiness({
+        variables: { businessId },
+      });
+      window.location.reload(false);
+      return;
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  };
+
   return (
     <div>
-      <div className="flex-row justify-center mb-3">
-        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
+      <Container>
+        <h2>
           Viewing {user.username}'s profile.
         </h2>
 
-        <div className="col-12 col-md-10 mb-5">
-          <h3>Save Businesses</h3>
+        <div>
+          <h3>Favorite Businesses</h3>
+          <CardColumns>
+            {user.businesses.map((business) => (
+              <Card key={business._id} style={{ width: '20rem' }} >
+                <Card.Title>{business.name}</Card.Title>
+                <Card.Text>{business.url}</Card.Text>
+                <Button variant="primary" onClick={() => handleDeleteBusiness(business._id)}>
+                  Remove from favorites
+                  </Button>
+              </Card>
+              
+            ))}
+          </CardColumns>
+          
 
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

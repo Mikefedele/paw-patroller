@@ -59,7 +59,8 @@ const SearchBusinesses = () => {
   // create function to handle saving a book to our database
   const handleSaveBiz = async (bizId) => {
     // find the book in `searchedBooks` state by the matching id
-    const bizToSave = searchedBiz.find((biz) => biz.bizId === bizId);
+    const bizToSave = searchedBiz.find((biz) => biz.id === bizId);
+    console.log(bizToSave);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -121,7 +122,7 @@ const SearchBusinesses = () => {
         <Col>
           {searchedBiz.map((biz) => {
             return (
-              <Card key={biz.bizId} border="dark">
+              <Card key={biz.id} border="dark">
                 {biz.image ? (
                   <Card.Img
                     src={biz.image}
@@ -136,13 +137,13 @@ const SearchBusinesses = () => {
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedBizIds?.some(
-                        (savedBizId) => savedBizId === biz.bizId
+                        (savedBizId) => savedBizId === biz.id
                       )}
                       className="btn-block btn-info"
-                      onClick={() => handleSaveBiz(biz.bizId)}
+                      onClick={() => handleSaveBiz(biz.id)}
                     >
                       {savedBizIds?.some(
-                        (savedBizId) => savedBizId === biz.bizId
+                        (savedBizId) => savedBizId === biz.id
                       )
                         ? "This business has already been saved!"
                         : "Save this Business!"}
