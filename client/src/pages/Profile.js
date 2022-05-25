@@ -61,7 +61,7 @@ const Profile = () => {
             {user.businesses.map((business) => (
               <Card key={business._id} style={{ width: '18rem' }} >
                 <Card.Title><h4>{business.name}</h4></Card.Title>
-                <Card.Text>{business.location}</Card.Text>
+                <Card.Text>{business.url}</Card.Text>
                 <Button variant="primary" onClick={() => handleDeleteBusiness(business._id)}>
                   Remove from favorites
                   </Button>

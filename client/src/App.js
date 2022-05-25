@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import NavBar from './components/Navbar';
 import { setContext } from '@apollo/client/link/context';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -39,7 +40,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <NavBar/>
-        <div className="flex-column justify-center align-center min-100-vh bg-primary">
+        <div className="flex-column justify-center align-center min-100-vh">
           <Routes>
             <Route 
               path="/" 
