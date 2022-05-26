@@ -11,6 +11,8 @@ import {
   Container
 } from 'react-bootstrap';
 
+const imageStyle = {width: "150px", height: "150px"};
+
 const Profile = () => {
 
   const { loading, data } = useQuery(QUERY_ME);
@@ -61,6 +63,15 @@ console.log(user.businesses)
           <CardColumns>
             {user.businesses.map((business) => (
               <Card key={business._id} style={{ width: '20rem' }} >
+                {business.imgUrl ? (
+                  <Card.Img
+                    src={business.imgUrl}
+                    alt={`The cover for ${business.name}`}
+                    variant="top"
+                    style={imageStyle}
+                    thumbnail
+                  />
+                ) : null}
                 <a href= {business.url} target="_blank" rel="noreferrer"><Card.Title>{business.name}</Card.Title></a>
                 <Card.Text>{business.location}</Card.Text>
                 <Button variant="primary" onClick={() => handleDeleteBusiness(business._id)}>
