@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Container, Col, Form, Button, Card, CardColumns, Jumbotron } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Form,
+  Button,
+  Card,
+  CardColumns,
+  Jumbotron,
+} from "react-bootstrap";
 import { searchMain, searchYelpApi } from "../utils/api";
 import Auth from "../utils/auth";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_BUSINESS } from "../utils/mutations";
-import { getSavedBizIds, saveBizIds } from "../utils/loacalStorage";
-
+import { getSavedBizIds, saveBizIds } from "../utils/localStorage";
+import { QUERY_ME } from "../utils/queries";
 
 const SearchBusinesses = () => {
   // create state for holding returned yelp api data
   const [searchedBiz, setSearchedBiz] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
+
+  const { loading, data } = useQuery(QUERY_ME);
+  const user = data?.me || {};
+  console.log(user.businesses);
 
   //  state to hold businessId values
 
@@ -77,6 +89,7 @@ const SearchBusinesses = () => {
           yelpId: bizToSave.id,
           url: bizToSave.url,
           location: bizToSave.street,
+          imgUrl: bizToSave.image,
         },
       });
       // console.log(data);
@@ -120,7 +133,7 @@ const SearchBusinesses = () => {
             ? `Viewing ${searchedBiz.length} results:`
             : "Search to begin"}
         </h2>
-        
+
         <CardColumns>
           {searchedBiz.map((biz) => {
             return (
@@ -135,7 +148,9 @@ const SearchBusinesses = () => {
                 <Card.Body>
                   <Card.Title>{biz.name}</Card.Title>
                   <p className="small">Location: {}</p>
-                  <Card.Text>{biz.street}</Card.Text>
+                  <Card.Text>
+                    {biz.street}                    
+                  </Card.Text>
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedBizIds?.some(
@@ -144,9 +159,7 @@ const SearchBusinesses = () => {
                       className="btn-block btn-info"
                       onClick={() => handleSaveBiz(biz.id)}
                     >
-                      {savedBizIds?.some(
-                        (savedBizId) => savedBizId === biz.id
-                      )
+                      {savedBizIds?.some((savedBizId) => savedBizId === biz.id)
                         ? "This business has already been saved!"
                         : "Save this Business!"}
                     </Button>

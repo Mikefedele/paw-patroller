@@ -15,6 +15,9 @@ const businessSchema = new Schema({
   location: {
     type: String,
   },
+  imgUrl: {
+    type: String
+  },
   comments: [
     {
       commentText: {

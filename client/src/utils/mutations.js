@@ -25,13 +25,14 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_BUSINESS = gql`
-  mutation addBusiness($name: String!, $yelpId: String!, $url: String!, $location: String!) {
-    addBusiness(name: $name, yelpId: $yelpId, url: $url, location: $location) {
+  mutation addBusiness($name: String!, $yelpId: String!, $url: String!, $location: String!, $imgUrl: String) {
+    addBusiness(name: $name, yelpId: $yelpId, url: $url, location: $location, imgUrl: $imgUrl) {
       _id
       name
       yelpId
       url
       location
+      imgUrl
       comments {
         _id
         commentText
@@ -63,6 +64,7 @@ mutation removeBusiness($businessId: ID!) {
     yelpId
     url
     location
+    imgUrl
     comments {
       _id
       commentText
