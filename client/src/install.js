@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-const installButStyle = {marginLeft: "100px"}
+const installButStyle = { marginLeft: "100px" };
 
 const InstallPWA = () => {
   const [supportsPWA, setSupportsPWA] = useState(false);
   const [promptInstall, setPromptInstall] = useState(null);
 
   useEffect(() => {
-    const handler = e => {
+    const handler = (e) => {
       e.preventDefault();
       console.log("we are being triggered :D");
       setSupportsPWA(true);
@@ -18,7 +18,7 @@ const InstallPWA = () => {
     return () => window.removeEventListener("transitionend", handler);
   }, []);
 
-  const onClick = evt => {
+  const onClick = (evt) => {
     evt.preventDefault();
     if (!promptInstall) {
       return;
@@ -43,6 +43,3 @@ const InstallPWA = () => {
 };
 
 export default InstallPWA;
-
-
-
