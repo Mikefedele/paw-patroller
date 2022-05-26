@@ -3,6 +3,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import '../Navbar.css';
 import logo from '../paw2.png';
+import Button from 'react-bootstrap/Button'
 
 const AppNavbar = () => {
 
@@ -43,8 +44,12 @@ const AppNavbar = () => {
                     </Nav.Link>
                     </>
               )}
+              
             </Nav>
           </Navbar.Collapse>
+          <div>
+          <Button variant="dark" id='buttonInstall'>Dark</Button>{' '}
+          </div>
         </Container>
       </Navbar>
       
