@@ -9,14 +9,15 @@
 }
 
 .jumbotron {
-  background-image: url("https://cdn.vox-cdn.com/thumbor/pigIGKY6X8HRmMS8Q8eHDkM2mqY=/0x0:4762x3604/1200x900/filters:focal(2001x1422:2761x2182)/cdn.vox-cdn.com/uploads/chorus_image/image/60187643/Wilson_Dog_Menu_62.6.jpg");
+  background-image: url("./petsheader.jpg");
   background-size: cover;
   height: 500px;
+
   
 }
 
 .container {
-  padding-top: 5rem;
+  padding-top: 6rem;
 }
 
 .App-header {
@@ -28,6 +29,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
 
 .App-link {
@@ -62,6 +64,11 @@
 
 form {
   padding-top: 20px;
+}
+
+.tooltip {
+  position: relative;
+  cursor: url("./cursor.cur"), pointer;
 }
 
 @media (prefers-reduced-motion: no-preference) {

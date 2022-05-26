@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url("./cursor.cur"), pointer;
+  
+ 
 }
 
 code {
@@ -32,11 +35,11 @@ code {
   margin-right: 15px;
 }
 
-h1 {
-  color: aqua;
-}
+
 
 mark {
-  background-color: rgb(170, 170, 166);
-  color: rgb(0, 0, 0);
+  background-color: rgb(213, 5, 5);
+  color: rgb(255, 255, 255);
+  font-size: 30px;
 }
+
