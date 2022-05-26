@@ -45,13 +45,13 @@ const resolvers = {
 
       return { token, user };
     },
-    addBusiness: async (parent, { name, yelpId, url, location }, context) => {
+    addBusiness: async (parent, { name, yelpId, url, location, imgUrl }, context) => {
       console.log('got to addBusiness mutation')
       if (context.user) {
         let business = await Business.findOne({yelpId})
         if(!business) {
           business = await Business.create({
-            name, yelpId, url, location
+            name, yelpId, url, location, imgUrl
           });
         } 
         console.log(business);
