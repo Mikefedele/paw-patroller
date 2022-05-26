@@ -89,7 +89,7 @@ const SearchBusinesses = () => {
           yelpId: bizToSave.id,
           url: bizToSave.url,
           location: bizToSave.street,
-          imgUrl: bizToSave.image
+          imgUrl: bizToSave.image,
         },
       });
       // console.log(data);
@@ -148,21 +148,21 @@ const SearchBusinesses = () => {
                 <Card.Body>
                   <Card.Title>{biz.name}</Card.Title>
                   <p className="small">Location: {}</p>
-                  <Card.Text>{biz.street}</Card.Text>
+                  <Card.Text>
+                    {biz.street}                    
+                  </Card.Text>
                   {Auth.loggedIn() && (
                     <Button
-                    disabled={savedBizIds?.some(
-                      (savedBizId) => savedBizId === biz.id
-                    )}
-                    className="btn-block btn-info"
-                    onClick={() => handleSaveBiz(biz.id)}
-                  >
-                    {savedBizIds?.some(
-                      (savedBizId) => savedBizId === biz.id
-                    )
-                      ? "This business has already been saved!"
-                      : "Save this Business!"}
-                  </Button>
+                      disabled={savedBizIds?.some(
+                        (savedBizId) => savedBizId === biz.id
+                      )}
+                      className="btn-block btn-info"
+                      onClick={() => handleSaveBiz(biz.id)}
+                    >
+                      {savedBizIds?.some((savedBizId) => savedBizId === biz.id)
+                        ? "This business has already been saved!"
+                        : "Save this Business!"}
+                    </Button>
                   )}
                 </Card.Body>
               </Card>

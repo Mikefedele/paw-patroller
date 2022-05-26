@@ -68,8 +68,8 @@ console.log(user.businesses)
                     src={business.imgUrl}
                     alt={`The cover for ${business.name}`}
                     variant="top"
-                    style={imageStyle}
-                    thumbnail
+                    // style={imageStyle}
+                    
                   />
                 ) : null}
                 <a href= {business.url} target="_blank" rel="noreferrer"><Card.Title>{business.name}</Card.Title></a>
