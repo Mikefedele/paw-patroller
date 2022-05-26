@@ -29,7 +29,7 @@ const AppNavbar = () => {
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/me'>
+                  <Nav.Link as={Link} to='/me' onClick='location.reload()'>
                     {Auth.getProfile().data.username}'s profile
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
