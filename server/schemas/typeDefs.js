@@ -15,6 +15,7 @@ const typeDefs = gql`
     yelpId: String
     url: String
     location: String
+    imgUrl: String
     comments: [Comment]!
   }
   type Comment {
@@ -37,7 +38,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addBusiness(name: String!, yelpId: String!, url: String!, location: String!): Business
+    addBusiness(name: String!, yelpId: String!, url: String!, location: String!, imgUrl: String): Business
     removeBusiness(businessId: ID!): Business
     addComment(businessId: ID!, commentText: String!): Business
     removeComment(businessId: ID!, commentId: ID!): Business

@@ -9,6 +9,10 @@ export const QUERY_ME = gql`
       businesses {
         _id
         name
+        location
+        imgUrl
+        yelpId
+        url
       }
       comments {
         _id

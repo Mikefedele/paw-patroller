@@ -48,7 +48,7 @@ const Profile = () => {
       throw new Error(err.message);
     }
   };
-
+console.log(user.businesses)
   return (
     <div>
       <Container>
@@ -61,8 +61,8 @@ const Profile = () => {
           <CardColumns>
             {user.businesses.map((business) => (
               <Card key={business._id} style={{ width: '20rem' }} >
-                <Card.Title>{business.name}</Card.Title>
-                <Card.Text>{business.url}</Card.Text>
+                <a href= {business.url} target="_blank" rel="noreferrer"><Card.Title>{business.name}</Card.Title></a>
+                <Card.Text>{business.location}</Card.Text>
                 <Button variant="primary" onClick={() => handleDeleteBusiness(business._id)}>
                   Remove from favorites
                   </Button>
