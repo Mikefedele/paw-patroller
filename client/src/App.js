@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
-import SearchYelp from './pages/searchYelp';
+// import SearchYelp from './pages/searchYelp';
 import { Navbar, Nav } from 'react-bootstrap';
 import Login from './pages/Login'; 
 import Signup from './pages/Signup';
