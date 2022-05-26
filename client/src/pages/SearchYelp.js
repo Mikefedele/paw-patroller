@@ -104,7 +104,7 @@ const SearchBusinesses = () => {
     <>
       <Jumbotron fluid className="text-light bg-danger">
         <Container>
-          <h1>Search For Dog Friendly Businesses Nearby</h1>
+          <h1><mark>Search For Dog Friendly Businesses Nearby</mark></h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
@@ -126,6 +126,8 @@ const SearchBusinesses = () => {
           </Form>
         </Container>
       </Jumbotron>
+
+      
 
       <Container>
         <h2>

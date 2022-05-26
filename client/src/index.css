@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url("./cursor.cur"), pointer;
+  
+ 
 }
 
 code {
@@ -30,5 +33,13 @@ code {
   padding: 15px;
   margin-bottom: 20px;
   margin-right: 15px;
+}
+
+
+
+mark {
+  background-color: rgb(213, 5, 5);
+  color: rgb(255, 255, 255);
+  font-size: 30px;
 }
 
