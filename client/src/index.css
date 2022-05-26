@@ -32,3 +32,11 @@ code {
   margin-right: 15px;
 }
 
+h1 {
+  color: aqua;
+}
+
+mark {
+  background-color: rgb(170, 170, 166);
+  color: rgb(0, 0, 0);
+}

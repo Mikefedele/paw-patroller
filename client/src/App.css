@@ -1,7 +1,6 @@
 .App {
   text-align: center;
   
-  
 }
 
 .App-logo {
@@ -9,10 +8,15 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.jumbotron {
+  background-image: url("https://cdn.vox-cdn.com/thumbor/pigIGKY6X8HRmMS8Q8eHDkM2mqY=/0x0:4762x3604/1200x900/filters:focal(2001x1422:2761x2182)/cdn.vox-cdn.com/uploads/chorus_image/image/60187643/Wilson_Dog_Menu_62.6.jpg");
+  background-size: cover;
+  height: 500px;
+  
+}
+
+.container {
+  padding-top: 5rem;
 }
 
 .App-header {
@@ -60,6 +64,11 @@ form {
   padding-top: 20px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
 
 @keyframes App-logo-spin {
   from {
