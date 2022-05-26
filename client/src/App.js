@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import NavBar from './components/Navbar'
+import InstallPWA from './install';
 import { setContext } from '@apollo/client/link/context';
 import './App.css';
 
@@ -48,7 +49,7 @@ function App() {
        
 
         <Navbar.Brand>
-
+        <InstallPWA />
         </Navbar.Brand>
 
 
