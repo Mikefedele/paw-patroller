@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   
+  
 }
 
 .App-logo {
@@ -28,6 +29,37 @@
 .App-link {
   color: #61dafb;
 }
+
+
+.card-body {
+  justify-content: center;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  
+}
+
+.card-header {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+ 
+  max-width: 100%;
+  max-height: 100%;
+
+}
+
+form {
+  padding-top: 20px;
+}
+
 
 @keyframes App-logo-spin {
   from {
