@@ -3,7 +3,6 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import '../Navbar.css';
 import logo from '../paw2.png';
-import Button from 'react-bootstrap/Button'
 
 const AppNavbar = () => {
 
@@ -16,9 +15,10 @@ const AppNavbar = () => {
           src={logo}
           width="50"
           height="50"
+          alt='paw patroller logo'
         />
         <h3>PAW PATROLLER</h3>
-        <h7>Dog Friendly Business Search</h7>
+        <h6>Dog Friendly Business Search</h6>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar'>

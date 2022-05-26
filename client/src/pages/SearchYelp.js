@@ -8,7 +8,7 @@ import {
   CardColumns,
   Jumbotron,
 } from "react-bootstrap";
-import { searchMain, searchYelpApi } from "../utils/api";
+import { searchYelpApi } from "../utils/api";
 import Auth from "../utils/auth";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_BUSINESS } from "../utils/mutations";
@@ -95,6 +95,7 @@ const SearchBusinesses = () => {
       // console.log(data);
       // if biz successfully saves to user's account, save biz id to state
       setSavedBizIds([...savedBizIds, bizToSave.bizId]);
+      alert("Business saved to your profile")
     } catch (err) {
       console.error(err);
     }
@@ -178,15 +179,4 @@ const SearchBusinesses = () => {
 
 export default SearchBusinesses;
 
-// {Auth.loggedIn() && (
-//   <Button
-//     disabled={savedBizIds?.some((savedBizId) => savedBizId === biz.bizId)}
-//     className='btn-block btn-info'
-//     onClick={() => handleSaveBiz(biz.bizId)}>
-//     {savedBizIds?.some((savedBizId) => savedBizId === biz.bizId)
 
-//       : 'Save this Business!'}
-//   </Button>
-// )}
-
-//
