@@ -47,9 +47,7 @@ const AppNavbar = () => {
               
             </Nav>
           </Navbar.Collapse>
-          <div>
-          <Button variant="dark" id='buttonInstall'>Dark</Button>{' '}
-          </div>
+         
         </Container>
       </Navbar>
       
