@@ -2,6 +2,7 @@
 const CORS = "https://cors-anywhere.herokuapp.com/"
 
 // Yelp needed cors-anywhere until deployed. Can update after deployment
+// cors addded
 
 // add .env to client folder to hide API key
 
