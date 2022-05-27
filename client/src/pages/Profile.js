@@ -11,7 +11,7 @@ import {
   Container
 } from 'react-bootstrap';
 
-const imageStyle = {width: "150px", height: "150px"};
+// const imageStyle = {width: "150px", height: "150px"};
 
 const Profile = () => {
 
