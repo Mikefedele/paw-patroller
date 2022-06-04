@@ -1,11 +1,11 @@
 // const yelp = require('yelp-fusion');
-const CORS = "https://cors-anywhere.herokuapp.com/"
+const CORS = "https://evening-mesa-85661.herokuapp.com/"
 
 // Yelp needed cors-anywhere until deployed. Can update after deployment
 // cors addded
 
 // add .env to client folder to hide API key
-// todo cors change
+// todo cors changed to cors-cure server set it to const for read-ability
 export const searchYelpApi = (query) => {
   console.log('hitAPI')
     return fetch(`${CORS}https://api.yelp.com/v3/businesses/search?term=dogs_allowed&location=${query}`, {
