@@ -46,6 +46,7 @@ const SearchBusinesses = () => {
       console.log(response);
       if (!response.ok) {
         throw new Error("Could not complete search request");
+      
       }
       //map over the yelp results and get endpoints we want
       const data = await response.json();
